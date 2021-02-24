@@ -504,6 +504,8 @@ describe( 'Multi-block selection', () => {
 
 		await page.mouse.click( coord.x, coord.y );
 
+		// Wait for blocks to have update asynchronously.
+		await page.evaluate( () => new Promise( window.requestIdleCallback ) );
 		await testNativeSelection();
 		expect( await getSelectedFlatIndices() ).toEqual( [] );
 
